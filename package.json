@@ -1,0 +1,22 @@
+{
+  "name": "vue-modules-ts",
+  "version": "1.0.0",
+  "description": "Vue modules coded in typescript",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test01" : "ts-node scripts/create.ts"
+  },
+  "keywords": [],
+  "author": "SerieSR",
+  "license": "ISC",
+  "_moduleAliases": {
+    "@utils": "dist/packages/utils"
+  },
+  "workspaces": [ "packages/modules/**" ],
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "module-alias": "^2.2.2"
+  }
+}
