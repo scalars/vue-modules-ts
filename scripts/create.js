@@ -120,7 +120,9 @@ program
         const projectPath = path.resolve(MODULES_PATH, component.path);
         const storyPath = path.resolve(STORIES_PATH, component.path);
         const projectFolder = path.resolve( projectPath, names['kebab-case_component_name'])
-        const mustacheGeneratedProjectFiles = getRendersMustache(componentTemplate, names);
+        const rootPath = path.resolve(__dirname, '..')
+        const mustacheGeneratedProjectFiles
+            = getRendersMustache(componentTemplate, { ...names, relativePath:path.relative( projectFolder, rootPath ) });
 
         if (fs.existsSync(projectFolder)) {
             throw new Error(`Project ${projectFolder} already exists`);
