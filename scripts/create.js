@@ -21,6 +21,7 @@ const getNames = (name, separator = '-') => {
 
 // split folder and path to create directories
 const getPathAndComponentName = (componentName) => {
+    const separator = '-';
     let folder = componentName.split('/');
     const name = folder.pop();
     if (folder.length > 0) {
@@ -28,7 +29,10 @@ const getPathAndComponentName = (componentName) => {
     } else {
         folder = '.';
     }
-    return { path: folder, name };
+    const kebabCase = folder.replace(/[A-Z]/g,
+        (char, index) => index > 0 ? `${separator}${char.toLowerCase()}` : char.toLowerCase()
+    );
+    return { path: kebabCase, name };
 };
 
 
@@ -122,7 +126,7 @@ program
         const projectFolder = path.resolve( projectPath, names['kebab-case_component_name'])
         const rootPath = path.resolve(__dirname, '..')
         const mustacheGeneratedProjectFiles
-            = getRendersMustache(componentTemplate, { ...names, relativePath:path.relative( projectFolder, rootPath ) });
+            = getRendersMustache(componentTemplate, { ...names, relativePath: path.relative( projectFolder, rootPath ),  'aux-variable': 'component.path'  });
 
         if (fs.existsSync(projectFolder)) {
             throw new Error(`Project ${projectFolder} already exists`);
