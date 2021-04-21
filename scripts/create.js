@@ -126,7 +126,7 @@ program
         const projectFolder = path.resolve( projectPath, names['kebab-case_component_name'])
         const rootPath = path.resolve(__dirname, '..')
         const mustacheGeneratedProjectFiles
-            = getRendersMustache(componentTemplate, { ...names, relativePath: path.relative( projectFolder, rootPath ),  'aux-variable': 'component.path'  });
+            = getRendersMustache(componentTemplate, { ...names, relativePath: path.relative( projectFolder, rootPath ) });
 
         if (fs.existsSync(projectFolder)) {
             throw new Error(`Project ${projectFolder} already exists`);
@@ -139,7 +139,7 @@ program
         generateProject(projectFolder, pathTemplateFiles, mustacheGeneratedProjectFiles);
 
         fs.mkdirSync(`${storyPath}/${names['kebab-case_component_name']}`, { recursive: true });
-        generateStory(storyTemplate, `${storyPath}/${names['kebab-case_component_name']}`, projectPath, component, names);
+        generateStory(storyTemplate, `${storyPath}/${names['kebab-case_component_name']}`, projectPath, component, { ...names, 'groupPath': component.path  });
 
     })
     .catch( error => {
