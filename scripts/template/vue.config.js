@@ -4,6 +4,7 @@ module.exports = {
     extract: false,
   },
   parallel: false,
+  lintOnSave: process.env.NODE_ENV !== 'production',
   transpileDependencies: ["vuetify"],
   chainWebpack: ( config ) => {
     // These are some necessary steps changing the default webpack config of the Vue CLI

@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --filename index src/main.ts",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint -c {{{relativePath}}}/.eslintrc.js --ignore-pattern !{{{relativePath}}}/.eslintignore"
   },
   "files": [
     "lib/*",

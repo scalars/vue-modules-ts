@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint  -c ../../.eslintrc.js --ignore-patter !../../.eslintignore",
     "start-storybook" : "start-storybook -c .config",
     "storybook": "start-storybook -p 6006 -c .config",
     "generate": "build-storybook -o dist -c .config"
