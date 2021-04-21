@@ -4,6 +4,8 @@ const fs = require('fs');
 const mustache = require('mustache');
 
 // functions definitions
+
+// get component name in different cases
 const getNames = (name, separator = '-') => {
     // TODO: validate first letter of component name starts whit lowercase
     const pascalCase = name.replace(/^[a-z]/, (char) => char.toUpperCase());
@@ -17,6 +19,7 @@ const getNames = (name, separator = '-') => {
     }
 };
 
+// split folder and path to create directories
 const getPathAndComponentName = (componentName) => {
     let folder = componentName.split('/');
     const name = folder.pop();
@@ -28,6 +31,7 @@ const getPathAndComponentName = (componentName) => {
     return { path: folder, name };
 };
 
+
 const getRendersMustache = (files, variables) => {
     return files.map((file) => {
         const fileObject = fs.readFileSync(file.path, 'utf-8');
@@ -38,43 +42,38 @@ const getRendersMustache = (files, variables) => {
     });
 };
 
-const generateProject = (projectPath, projectName, templateFilesPath, mustacheRenderedFiles) => {
-    const projectFolder = path.resolve(projectPath, projectName);
-    // if (fs.existsSync(projectFolder)) {
-    //     throw new Error(`Project ${projectFolder} already exists`);
-    // }
-    // fs.mkdirSync(path.resolve(projectPath, projectName), { recursive: true });
-    // fs.mkdirSync(path.resolve(projectPath, projectName, 'src'));
+
+const generateProject = (projectFolder, templateFilesPath, mustacheRenderedFiles) => {
     const templateFiles = fs.readdirSync(templateFilesPath);
+    console.log( '\x1b[38m%s\x1b[33m', 'Creating Files in:', projectFolder );
     templateFiles.forEach((file) => {
         if(file !== 'src'){
-            console.log('copy file', file);
+            console.log('\x1b[37m%s', file );
             fs.copyFileSync(
-                path.resolve(templateFilesPath, file), path.resolve(projectFolder, file)
+                path.resolve( templateFilesPath, file ), path.resolve( projectFolder, file )
             )
         }
     });
-    const templateFilesSrc = fs.readdirSync(`${templateFilesPath}/src`);
-    templateFilesSrc.forEach((file) => {
-        console.log('copy file', file);
+    const templateFilesSrc = fs.readdirSync( `${templateFilesPath}/src` );
+    templateFilesSrc.forEach( ( file ) => {
+        console.log('\x1b[37m%s', file );
             fs.copyFileSync(
-                path.resolve(`${templateFilesPath}/src`, file), path.resolve(`${projectFolder}/src`, file)
+                path.resolve( `${templateFilesPath}/src`, file ), path.resolve( `${projectFolder}/src`, file )
             )
     });
-    mustacheRenderedFiles.forEach(file => fs.writeFileSync(path.resolve(projectFolder, file.copyPath), file.template))
+    mustacheRenderedFiles.forEach( file => fs.writeFileSync( path.resolve( projectFolder, file.copyPath ), file.template ) )
 };
 
-const generateStory = (storyTemplate, folderStorybook, folderProject, component, names) => {
-    // fs.mkdirSync(folderStorybook, { recursive: true });
-    console.log(folderStorybook)
+const generateStory = (storyTemplate, folderStorybook, projectPath, component, names) => {
     const templateFile = fs.readFileSync(storyTemplate, 'utf-8');
     const renderedTemplate = mustache.render(templateFile, {
         ...names,
         component_path: component.path,
-        relative_path: path.relative(folderStorybook, folderProject)
-    });
-    console.log('Names content:',names)
-    fs.writeFileSync(path.resolve(`${folderStorybook}/${names['camelCase_component_name']}`, `${names['camelCase_component_name']}.stories.ts`), renderedTemplate);
+        relative_path: path.relative(folderStorybook, projectPath)
+    } );
+    console.log( '\x1b[0m%s\x1b[33m', 'creating story in:', folderStorybook);
+    fs.writeFileSync(path.resolve(`${folderStorybook}`, `${names['camelCase_component_name']}.stories.ts`), renderedTemplate);
+    console.log('\x1b[37m%s', `${names['camelCase_component_name']}.stories.ts` );
 };
 
 //inquirer definition
@@ -83,23 +82,23 @@ program
         {
             type: 'input',
             name: 'componentName',
-            message: "input the component name",
+            message: 'input the component name it can starts with a route example:' +
+                'chat/chatInput creates chat/chat-input/[componentFiles]*',
             validate: function (value){
-                const isCamelCase = value.match(/^[a-zA-Z0-9]+$/);
+                const isCamelCase = value.match(/^[a-zA-Z0-9-\/]+$/);
                 return isCamelCase ? true : 'please enter a valid camel case name'
             },
         }
     ])
     .then( answers => {
-        const componentName = answers.componentName;
+        const component = getPathAndComponentName(answers.componentName);
+        const names = getNames(component.name);
         const MODULES_PATH = path.resolve(__dirname, '..', 'packages/modules');
         const STORIES_PATH = path.resolve(__dirname, '..', 'packages/storybook/stories');
-        const component = getPathAndComponentName(componentName);
-        const names = getNames(component.name);
         const pathMustacheFiles = path.resolve(__dirname, 'mustache');
         const pathTemplateFiles = path.resolve(__dirname, 'template');
         const storyTemplate = path.resolve(pathMustacheFiles, `component.stories.mustache`);
-        const mustacheFiles = [
+        const componentTemplate = [
             {
                 path: path.resolve(pathMustacheFiles, 'component.mustache'),
                 copyPath: `src/components/${names.PascalCase_component_name}.vue`
@@ -118,15 +117,23 @@ program
             }
         ];
 
-        fs.mkdirSync(`${MODULES_PATH}/${names.camelCase_component_name}/src/components`, { recursive: true });
-        fs.mkdirSync(`${STORIES_PATH}/${names.camelCase_component_name}`, { recursive: true });
-
-        const mustacheRenderedFiles = getRendersMustache(mustacheFiles, names);
-
         const projectPath = path.resolve(MODULES_PATH, component.path);
-        generateProject(projectPath, names['kebab-case_component_name'], pathTemplateFiles, mustacheRenderedFiles);
         const storyPath = path.resolve(STORIES_PATH, component.path);
-        generateStory(storyTemplate, storyPath, projectPath, component, names);
+        const projectFolder = path.resolve( projectPath, names['kebab-case_component_name'])
+        const mustacheGeneratedProjectFiles = getRendersMustache(componentTemplate, names);
+
+        if (fs.existsSync(projectFolder)) {
+            throw new Error(`Project ${projectFolder} already exists`);
+        }
+        if (fs.existsSync(`${storyPath}/${names['kebab-case_component_name']}`)) {
+            throw new Error(`Project ${storyPath} already exists`);
+        }
+
+        fs.mkdirSync(`${projectPath}/${names['kebab-case_component_name']}/src/components`, { recursive: true });
+        generateProject(projectFolder, pathTemplateFiles, mustacheGeneratedProjectFiles);
+
+        fs.mkdirSync(`${storyPath}/${names['kebab-case_component_name']}`, { recursive: true });
+        generateStory(storyTemplate, `${storyPath}/${names['kebab-case_component_name']}`, projectPath, component, names);
 
     })
     .catch( error => {
