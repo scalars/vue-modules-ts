@@ -31,6 +31,5 @@ module.exports = {
         'space-infix-ops': [ 'error', { 'int32Hint': true } ],
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-        'ban-ts-ignore': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     }
 }

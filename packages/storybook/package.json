@@ -6,8 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "start-storybook" : "start-storybook -c .config",
+    "storybook": "start-storybook -p 6006 -c .config",
+    "generate": "build-storybook -o dist"
   },
   "dependencies": {
     "core-js": "^3.6.5",
