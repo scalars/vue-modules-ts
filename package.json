@@ -14,7 +14,7 @@
   "_moduleAliases": {
     "@utils": "dist/packages/utils"
   },
-  "workspaces": [ "packages/modules/**" ],
+  "workspaces": [ "packages/**" ],
   "devDependencies": {
     "lerna": "^4.0.0",
     "module-alias": "^2.2.2"

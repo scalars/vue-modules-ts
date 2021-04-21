@@ -1,0 +1,13 @@
+import {{PascalCase_component_name}} from '../{{{relative_path}}}/{{camelCase_component_name}}/src/components/{{PascalCase_component_name}}.vue';
+
+export default {
+title: '{{PascalCase_component_name}}',    // Path to the component
+component: {{PascalCase_component_name}},        // Main component
+decorators: [],
+parameters: {}
+}
+
+export const basic = () => ({
+components: { {{PascalCase_component_name}} },
+template: '<{{kebab-case_component_name}}/>'
+});
