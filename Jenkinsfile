@@ -36,7 +36,7 @@ pipeline {
                 }
             }
         }
-        stage('Development Deploy') {
+        stage('Deploy StoryBook') {
             when {
                 expression {
                     return env.BRANCH_NAME == 'main'
