@@ -1,6 +1,7 @@
 node_modules
 lib
 *.d.ts
-babel.config.js
-vue.config.js
+babel.config.ts
+vue.config.ts
+babel.config.ts
 *.js

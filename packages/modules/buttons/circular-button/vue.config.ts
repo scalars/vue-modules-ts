@@ -1,3 +1,4 @@
+//@ts-ignore
 module.exports = {
     outputDir: 'lib',
     css: {
