@@ -11,8 +11,6 @@ pipeline {
                     echo "${PROJECT_NAME} Project name to deploy"
                     echo "${env.BRANCH_NAME} Branch name to deploy"
                     echo "${env.TAG_NAME} Tag name to deploy"
-                    echo "${SUCCESS_TEST} Status test"
-                    echo "${SUCCESS_INTEGRATION} Status test integration"
                     sh "aws --profile ci s3 sync s3://continuousintegration/scripts ./"
                     sh "chmod 755 ./*.sh"
                 }
