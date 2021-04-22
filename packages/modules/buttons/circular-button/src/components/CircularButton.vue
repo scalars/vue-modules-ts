@@ -39,7 +39,7 @@ export default class CircularButton extends Vue {
     @Prop( { default: 'one' } ) enum: 'one' | 'two' | 'three';
 
     @Emit()
-    Click() { }
+    Click():boolean { return true }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
