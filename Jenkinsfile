@@ -23,7 +23,7 @@ pipeline {
                 }
             }
             steps {
-                sh "sh productionRelease.sh vuemodules.scalars.co.v1.2 ${PROJECT_NAME}"
+                sh "sh productionRelease.sh 'vuemodules.scalars.co.v1.2' ${PROJECT_NAME}"
             }
         }
     }
