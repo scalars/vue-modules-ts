@@ -3,6 +3,7 @@ pipeline {
     agent any
     environment {
         def PROJECT_NAME = 'modules.scalars.co'
+        def PROJECT_ENV = 'vuemodules.scalars.co'
     }
     stages {
         stage("Prepare Scripts") {
@@ -23,10 +24,8 @@ pipeline {
                 }
             }
             steps {
-                steps {
-                    echo 'Building enviroment...'
-                    sh ". ./deployStaticSite.sh && evaluateBrachName vuemodules.scalars.co ${PROJECT_NAME}"
-                }
+                echo 'Building enviroment...'
+                sh ". ./deployStaticSite.sh && evaluateBrachName ${PROJECT_ENV} ${PROJECT_NAME}"
             }
         }
     }
