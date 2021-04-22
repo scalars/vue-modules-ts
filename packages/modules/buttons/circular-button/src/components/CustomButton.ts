@@ -1,5 +1,5 @@
-import styled from "vue-styled-components";
-import { getProp } from "../../../../../utils/utils";
+import styled from 'vue-styled-components'
+import { getProp } from '../../../../../utils/utils'
 
 const props = {
     size: String,
@@ -9,21 +9,21 @@ const props = {
     borderColor: String,
     color: String,
     colorHover: String
-};
+}
 
-const CustomButton = styled('button', props)`
-    width: ${getProp('size')}px;
-    height: ${getProp('size')}px;
-    background-color: ${getProp('backgroundColor')};
-    border: ${getProp('borderSize')}px solid ${getProp('borderColor')};
-    color: ${getProp('color')};
+const CustomButton = styled( 'button', props )`
+    width: ${getProp( 'size' )}px;
+    height: ${getProp( 'size' )}px;
+    background-color: ${getProp( 'backgroundColor' )};
+    border: ${getProp( 'borderSize' )}px solid ${getProp( 'borderColor' )};
+    color: ${getProp( 'color' )};
     border-radius: 50%;
     position: relative;
     overflow: hidden;
     transition: all 200ms ease-in-out;
     
     &:hover {
-        color: ${getProp('colorHover')};
+        color: ${getProp( 'colorHover' )};
         
         &:before {
             left: 0;
@@ -37,7 +37,7 @@ const CustomButton = styled('button', props)`
         height: 100%;
         top: 0;
         left: -100%;
-        background-color: ${getProp('backgroundHover')};
+        background-color: ${getProp( 'backgroundHover' )};
         z-index: 0;
         transition: all 200ms ease-in-out;
     }
@@ -45,6 +45,6 @@ const CustomButton = styled('button', props)`
     &:focus {
         outline: none;
     }
-`;
+`
 
-export default CustomButton;
+export default CustomButton

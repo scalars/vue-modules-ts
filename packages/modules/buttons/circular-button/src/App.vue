@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import CircularButton from "@/components/CircularButton.vue";
+import CircularButton from '@/components/CircularButton.vue'
 
 @Component( {
     components: {

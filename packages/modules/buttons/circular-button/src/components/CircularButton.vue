@@ -1,21 +1,21 @@
 <template>
-  <div class="vm-circular-button-container">
-    <custom-button
-        :size="size"
-        :background-color="backgroundColor"
-        :background-hover="backgroundHoverColor"
-        :border-size="borderSize"
-        :border-color="borderColor"
-        :color="color"
-        :color-hover="hoverColor"
-        @click="Click"
-    >
-        <div class="content">
-            <slot />
+    <div class="vm-circular-button-container">
+        <custom-button
+            :size="size"
+            :background-color="backgroundColor"
+            :background-hover="backgroundHoverColor"
+            :border-size="borderSize"
+            :border-color="borderColor"
+            :color="color"
+            :color-hover="hoverColor"
+            @click="Click"
+        >
+            <div class="content">
+                <slot />
 
-        </div>
-    </custom-button>
-  </div>
+            </div>
+        </custom-button>
+    </div>
 </template>
 
 <script lang="ts">
