@@ -12,10 +12,10 @@ const props = {
 };
 
 const CustomButton = styled('button', props)`
-    width: ${getProp('size')};
-    height: ${getProp('size')};
+    width: ${getProp('size')}px;
+    height: ${getProp('size')}px;
     background-color: ${getProp('backgroundColor')};
-    border: ${getProp('borderSize')} solid ${getProp('borderColor')};
+    border: ${getProp('borderSize')}px solid ${getProp('borderColor')};
     color: ${getProp('color')};
     border-radius: 50%;
     position: relative;

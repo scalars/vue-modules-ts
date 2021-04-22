@@ -3,11 +3,11 @@
     <custom-button
         :size="size"
         :background-color="backgroundColor"
-        :background-hover="backgroundHover"
+        :background-hover="backgroundHoverColor"
         :border-size="borderSize"
         :border-color="borderColor"
         :color="color"
-        :color-hover="colorHover"
+        :color-hover="hoverColor"
         @click="Click"
     >
         <div class="content">
@@ -28,13 +28,15 @@ import CustomButton from './CustomButton'
     }
 } )
 export default class CircularButton extends Vue {
-    @Prop( { default: '50px' } ) size: string;
-    @Prop( { default: '#fff' } ) backgroundColor: string;
-    @Prop( { default: '#ff0' } ) backgroundHover: string;
-    @Prop( { default: '1px' } ) borderSize: string;
-    @Prop( { default: 'black' } ) borderColor: string;
-    @Prop( { default: 'black' } ) color: string;
-    @Prop( { default: '#fff' } ) colorHover: string;
+    @Prop( { default: 50 } ) size: number;
+    @Prop( { default: 1 } ) borderSize: number;
+    @Prop( { default: '#ffffff' } ) backgroundColor: string;
+    @Prop( { default: '#ffff00' } ) backgroundHoverColor: string;
+    @Prop( { default: '#000000' } ) borderColor: string;
+    @Prop( { default: '#000000' } ) color: string;
+    @Prop( { default: '#ffffff' } ) hoverColor: string;
+    @Prop( { default: false } ) disabled: boolean;
+    @Prop( { default: 'one' } ) enum: 'one' | 'two' | 'three';
 
     @Emit()
     Click() { }
