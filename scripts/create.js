@@ -89,8 +89,9 @@ program
             message: 'input the component name it can starts with a route example:' +
                 'chat/chatInput creates chat/chat-input/[componentFiles]*',
             validate: function (value){
-                const isCamelCase = value.match(/^[a-zA-Z0-9-\/]+$/);
-                return isCamelCase ? true : 'please enter a valid camel case name'
+                const { name } = getPathAndComponentName(value);
+                const isCamelCase = name.match(/^[a-zA-Z0-9]+$/);
+                return isCamelCase ? true : 'please enter a valid camel case name';
             },
         }
     ])

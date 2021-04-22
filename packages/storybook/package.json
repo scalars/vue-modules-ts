@@ -6,9 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint  -c ../../.eslintrc.js --ignore-patter !../../.eslintignore",
-    "start-storybook" : "start-storybook -c .config",
-    "storybook": "start-storybook -p 6006 -c .config",
-    "generate": "build-storybook -o dist -c .config"
+    "start-storybook": "start-storybook -c .config -s ./public",
+    "storybook": "start-storybook -p 6006 -c .config -s ./public",
+    "generate": "build-storybook -o dist -c .config -s ./public"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -22,6 +22,8 @@
     "@storybook/addon-actions": "^6.2.8",
     "@storybook/addon-essentials": "^6.2.8",
     "@storybook/addon-links": "^6.2.8",
+    "@storybook/addons": "^6.2.8",
+    "@storybook/theming": "^6.2.8",
     "@storybook/vue": "^6.2.8",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
