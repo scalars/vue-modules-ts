@@ -7,22 +7,6 @@ pipeline {
         def SUCCESS_INTEGRATION = false
     }
     stages {
-        stage("Code Review Sonar and Eslint") {
-            steps {
-                script {
-                    SUCCESS_INTEGRATION = true
-                    echo "TODO Realizar scripts para revisión de código"
-                }
-            }
-        }
-        stage("Unit Test") {
-            steps {
-                script {
-                    SUCCESS_TEST = true
-                    echo "${SUCCESS_TEST} Resultado de los test"
-                }
-            }
-        }
         stage("Prepare Scripts") {
             steps {
                 script {
