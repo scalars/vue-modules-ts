@@ -3,8 +3,6 @@ pipeline {
     agent any
     environment {
         def PROJECT_NAME = 'vuemodules.scalars.co'
-        def SUCCESS_TEST = false
-        def SUCCESS_INTEGRATION = false
     }
     stages {
         stage("Prepare Scripts") {
