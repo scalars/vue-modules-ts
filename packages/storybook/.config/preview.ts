@@ -1,9 +1,9 @@
-import { themes } from '@storybook/theming';
+import MadrovTheme from './MadrovTheme';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   docs: {
-    theme: themes.dark,
+    theme: MadrovTheme,
   },
   layout: 'centered',
   controls: {
