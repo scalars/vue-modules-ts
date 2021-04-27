@@ -1,12 +1,15 @@
 <template>
     <div>
-        <div ref="scroll"
-             class="vm-scroll-container-container"
-             :style="{ height: this.scrollHeight }"
-             v-on:scroll="scrollHandler"
+        <div
+            ref="scroll"
+            class="vm-scroll-container-container"
+            :style="{ height: this.scrollHeight }"
+            v-on:scroll="scrollHandler"
         >
             <slot>
-                <p v-for="i in 40" :key="i">
+                <p
+                    v-for="i in 40"
+                    :key="i">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus amet consequatur deserunt dolorum enim error ex, excepturi inventore libero maiores minus quia repellendus temporibus? Et eveniet facere laboriosam quisquam voluptatem.
                 </p>
             </slot>
@@ -15,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator';
 
 @Component( { components: {} } )
 export default class ScrollContainer extends Vue {
@@ -43,25 +46,25 @@ export default class ScrollContainer extends Vue {
      * **/
 
     mounted ( ):void {
-        this.scrollReference = this.$refs.scroll as Element
+        this.scrollReference = this.$refs.scroll as Element;
     }
 
     get reference(): Element {
-        return this.scrollReference
+        return this.scrollReference;
     }
 
     private isEndOfScroll ( scrollHeight: number, scrollPos: number, pixelsFromBottom: number ):void {
         if ( ( scrollHeight - scrollPos ) <= pixelsFromBottom ) {
             if ( this.disableEvent ) {
-                this.endScroll()
+                this.endScroll();
             }
         }
     }
 
     private scrollHandler ():void {
-        const scrollHeight = this.scrollReference.scrollHeight
-        const scrollPosition = this.scrollReference.scrollTop + this.scrollReference.clientHeight
-        this.isEndOfScroll( scrollHeight, scrollPosition, this.scrollEventBefore )
+        const scrollHeight = this.scrollReference.scrollHeight;
+        const scrollPosition = this.scrollReference.scrollTop + this.scrollReference.clientHeight;
+        this.isEndOfScroll( scrollHeight, scrollPosition, this.scrollEventBefore );
     }
 
     /**
@@ -70,7 +73,7 @@ export default class ScrollContainer extends Vue {
 
     @Emit()
     endScroll ():boolean {
-        return true
+        return true;
     }
 
 }

@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import ScrollContainer from '@/components/ScrollContainer.vue'
+import { Component, Vue } from 'vue-property-decorator';
+import ScrollContainer from '@/components/ScrollContainer.vue';
 
 @Component( {
     components: {
