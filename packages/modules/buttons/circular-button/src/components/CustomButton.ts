@@ -1,5 +1,5 @@
-import styled from 'vue-styled-components'
-import { getProp } from '../../../../../utils/utils'
+import styled from 'vue-styled-components';
+import { getProp } from '../../../../../utils/utils';
 
 const props = {
     size: String,
@@ -9,7 +9,7 @@ const props = {
     borderColor: String,
     color: String,
     colorHover: String
-}
+};
 
 const CustomButton = styled( 'button', props )`
     width: ${getProp( 'size' )}px;
@@ -45,6 +45,6 @@ const CustomButton = styled( 'button', props )`
     &:focus {
         outline: none;
     }
-`
+`;
 
-export default CustomButton
+export default CustomButton;
