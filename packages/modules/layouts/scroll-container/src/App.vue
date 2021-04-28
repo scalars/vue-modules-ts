@@ -1,16 +1,16 @@
 <template>
     <div id="app">
-        <circular-button> hola </circular-button>
+        <scroll-container scroll-height="300px" />
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import CircularButton from '@/components/CircularButton.vue';
+import ScrollContainer from '@/components/ScrollContainer.vue';
 
 @Component( {
     components: {
-        CircularButton
+        ScrollContainer
     }
 } )
 export default class App extends Vue {}

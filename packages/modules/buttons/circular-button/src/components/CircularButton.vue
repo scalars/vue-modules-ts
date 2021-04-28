@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
-import CustomButton from './CustomButton'
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator';
+import CustomButton from './CustomButton';
 
 @Component( {
     components: {
@@ -39,7 +39,7 @@ export default class CircularButton extends Vue {
     @Prop( { default: 'one' } ) enum: 'one' | 'two' | 'three';
 
     @Emit()
-    Click():boolean { return true }
+    Click():boolean { return true; }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
