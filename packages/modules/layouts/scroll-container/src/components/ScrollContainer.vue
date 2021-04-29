@@ -1,19 +1,17 @@
 <template>
-    <div>
-        <div
-            ref="scroll"
-            class="vm-scroll-container-container"
-            :style="{ height: this.scrollHeight }"
-            v-on:scroll="scrollHandler"
-        >
-            <slot>
-                <p
-                    v-for="i in 40"
-                    :key="i">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus amet consequatur deserunt dolorum enim error ex, excepturi inventore libero maiores minus quia repellendus temporibus? Et eveniet facere laboriosam quisquam voluptatem.
-                </p>
-            </slot>
-        </div>
+    <div
+        ref="scroll"
+        class="vm-scroll-container-container"
+        :style="{ height: this.scrollHeight }"
+        v-on:scroll="scrollHandler"
+    >
+        <slot name="default">
+            <p
+                v-for="i in 40"
+                :key="i">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus amet consequatur deserunt dolorum enim error ex, excepturi inventore libero maiores minus quia repellendus temporibus? Et eveniet facere laboriosam quisquam voluptatem.
+            </p>
+        </slot>
     </div>
 </template>
 
