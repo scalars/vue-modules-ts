@@ -7,7 +7,7 @@ export default {
     subcomponents: {},
     argTypes: {
         slide: {
-            control: { type:'select', options: ['bottom','top'] }
+            control: { type:'select', options: ['bottom','top', ''] }
         }
     }
 }

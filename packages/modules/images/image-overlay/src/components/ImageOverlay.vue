@@ -1,7 +1,7 @@
 <template>
     <div class="vm-image-overlay-container">
         <img :src="image" :alt="{ [alt]: !!alt }" class="vm-image-overlay-image">
-        <div :class="overlayClasses" :style="{'background-color': backgroundOverlayColor}">
+        <div :class="overlayClasses" :style="{'background-color': backgroundOverlayColor, 'height': title ? titleHeight : undefined}">
             <slot name="default">
                 <div class="text">Hello World</div>
             </slot>
@@ -14,10 +14,15 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component( { components: {} } )
 export default class ImageOverlay extends Vue {
+    /**
+     * Props
+     * **/
+
     @Prop( { default: true } ) fade: boolean;
     @Prop( { default: '' } ) slide: 'bottom' | 'top' | '';
     @Prop( { default: false } ) zoom: boolean;
     @Prop( { default: false } ) title: boolean;
+    @Prop( { default: '80px' } ) titleHeight: string
     @Prop( { default: 'https://i.ytimg.com/vi/hXBU-wYE_l0/maxresdefault.jpg' } ) image: string;
     @Prop( {  } ) alt: string;
     @Prop( { default: '#000' } ) backgroundOverlayColor: string;
@@ -26,7 +31,9 @@ export default class ImageOverlay extends Vue {
         'vm-image-overlay-overlay': true,
         'vm-image-overlay-fade': this.fade,
         'vm-image-overlay-slide-bottom': this.slide === 'bottom',
-        'vm-image-overlay-slide-top': this.slide === 'top'
+        'vm-image-overlay-slide-top': this.slide === 'top',
+        'vm-image-overlay-zoom': this.zoom,
+        'vm-image-overlay-title': this.title
     }
 }
 </script>
@@ -64,6 +71,20 @@ export default class ImageOverlay extends Vue {
             bottom: 100%;
             opacity: 1;
         }
+        &.vm-image-overlay-zoom{
+            opacity: 1;
+            -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+            -webkit-transition: .3s ease;
+            transition: .3s ease;
+
+        }
+        &.vm-image-overlay-title{
+            top: inherit;
+            left: inherit;
+            right: inherit;
+        }
     }
 
 
@@ -90,6 +111,14 @@ export default class ImageOverlay extends Vue {
     &slide-top{
         bottom: 0;
         height: 100%;
+    }
+    &zoom{
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
+    &title{
+        opacity: 1;
     }
 }
 </style>
