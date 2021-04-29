@@ -48,10 +48,11 @@ const getRendersMustache = (files, variables) => {
 
 
 const generateProject = (projectFolder, templateFilesPath, mustacheRenderedFiles) => {
+    // TODO: refactor
     const templateFiles = fs.readdirSync(templateFilesPath);
     console.log( '\x1b[38m%s\x1b[33m', 'Creating Files in:', projectFolder );
     templateFiles.forEach((file) => {
-        if(file !== 'src'){
+        if(!['src','utils','components'].includes(file)){
             console.log('\x1b[37m%s', file );
             fs.copyFileSync(
                 path.resolve( templateFilesPath, file ), path.resolve( projectFolder, file )
@@ -60,10 +61,19 @@ const generateProject = (projectFolder, templateFilesPath, mustacheRenderedFiles
     });
     const templateFilesSrc = fs.readdirSync( `${templateFilesPath}/src` );
     templateFilesSrc.forEach( ( file ) => {
-        console.log('\x1b[37m%s', file );
+        if(!['utils','components'].includes(file)) {
+            console.log('\x1b[37m%s', file);
             fs.copyFileSync(
-                path.resolve( `${templateFilesPath}/src`, file ), path.resolve( `${projectFolder}/src`, file )
+                path.resolve(`${templateFilesPath}/src`, file), path.resolve(`${projectFolder}/src`, file)
             )
+        }
+    });
+    const templateFilesUtils = fs.readdirSync( `${templateFilesPath}/src/components/utils` );
+    templateFilesUtils.forEach( ( file ) => {
+        console.log('\x1b[37m%s', file );
+        fs.copyFileSync(
+            path.resolve( `${templateFilesPath}/src/components/utils`, file ), path.resolve( `${projectFolder}/src/components/utils`, file )
+        )
     });
     mustacheRenderedFiles.forEach( file => fs.writeFileSync( path.resolve( projectFolder, file.copyPath ), file.template ) )
 };
@@ -136,7 +146,7 @@ program
             throw new Error(`Project ${storyPath} already exists`);
         }
 
-        fs.mkdirSync(`${projectPath}/${names['kebab-case_component_name']}/src/components`, { recursive: true });
+        fs.mkdirSync(`${projectPath}/${names['kebab-case_component_name']}/src/components/utils`, { recursive: true });
         generateProject(projectFolder, pathTemplateFiles, mustacheGeneratedProjectFiles);
 
         fs.mkdirSync(`${storyPath}/${names['kebab-case_component_name']}`, { recursive: true });
