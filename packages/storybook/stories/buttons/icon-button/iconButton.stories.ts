@@ -14,7 +14,13 @@ const Template = (args, { argTypes }) => ({
     template:`<icon-button v-bind="$props" />`,
 });
 
-export const Primary = Template.bind( {} );
-Primary.args = {
+export const Square = Template.bind( {} );
+Square.args = {
 ...defaultProps
+}
+export const Circle = Template.bind( {} );
+Circle.args = {
+    borderRadius: '100%',
+    ...defaultProps,
+    icon: 'mdi mdi-account'
 }
