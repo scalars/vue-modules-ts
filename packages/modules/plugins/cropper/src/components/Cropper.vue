@@ -74,7 +74,7 @@ export default class Cropper extends Vue {
     /**
      * Props
      * **/
-    @Prop( { } ) image: Blob
+    @Prop( { } ) image: string
     @Prop( { default: true } ) circle: boolean;
     @Prop( { default: '#823deb' } ) color: string;
     @Prop( { } ) cropperWidth: string;
@@ -89,23 +89,15 @@ export default class Cropper extends Vue {
      * **/
     private resetStyles: { height: string, width: string } = { height: 'inherit', width: 'inherit' }
 
-    private cropperImage: Blob;
-
+    private imageSource: string = '';
 
     /**
      * Private Methods
      * **/
-    private get imageSource (): Blob {
-        return this.cropperImage ? this.cropperImage : this.image;
-    }
-
-    private set imageSource ( newValue: Blob ) {
-        this.cropperImage = newValue;
-    }
 
     @Watch( 'image' )
     private externalImageHandler( old: unknown, newValue: string ): void {
-        this.imageSource = ( newValue || old ) as Blob;
+        this.imageSource = newValue || old as string;
     }
 
     private get cssProps () {
@@ -118,13 +110,13 @@ export default class Cropper extends Vue {
 
     private imageInputParser ( input: { target: { files: FileList } } | null ):void {
         if ( input ) {
-            const file = input.target.files[0] || this.imageSource;
+            const file = input.target.files[0];
             const reader = new FileReader();
             if ( file ) {
-                reader.readAsDataURL( file );
+                reader.readAsDataURL( file as Blob );
                 reader.onload = ( event ) => {
                     if ( event.target ) {
-                        this.imageSource = event.target.result as Blob;
+                        this.imageSource = event.target.result as string ;
                         ( this.$refs.cropper as any ).replace( this.imageSource );
                     } else {
                         console.log( event );
