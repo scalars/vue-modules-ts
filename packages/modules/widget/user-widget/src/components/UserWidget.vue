@@ -21,9 +21,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
-import Avatar from './utils/Avatar.vue'
 
-@Component( { components: { Avatar } } )
+@Component( {} )
 export default class UserWidget extends Vue {
     @Prop( { default: 'https://pm1.narvii.com/6454/b43887c5b8ea480a5109fc12f07e293acb29543c_hq.jpg' } ) picture: string;
     @Prop( { default: '30px' } ) pictureSize: string;
