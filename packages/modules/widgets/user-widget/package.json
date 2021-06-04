@@ -1,14 +1,15 @@
 {
   "name": "@vuemodules/user-widget",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "private": false,
   "license": "MIT",
   "author": "",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --filename index src/main.ts",
+    "build": "vue-cli-service build --target lib --filename index --formats umd-min src/index.js",
     "lint": "vue-cli-service lint -c ../../../../.eslintrc.js --ignore-pattern !../../../../.eslintignore"
   },
+  "main": "dist/index.umd.min.js",
   "files": [
     "lib/*",
     "index.d.ts"
