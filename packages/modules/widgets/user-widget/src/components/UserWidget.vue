@@ -6,10 +6,11 @@
             class="vm-user-widget-user-image"
             @click="$emit( 'image-action')"
         >
-            <slot name="avatar">
+            <slot name="avatarSlot">
                 <img
                     class="vm-user-widget-user-image"
-                    :src="avatar">
+                    :src="avatar"
+                    alt="">
             </slot>
         </div>
         <div class="vm-user-widget-user-info" >
@@ -18,7 +19,7 @@
                 class="vm-user-widget-username"
                 @click="$emit('username-action')"
             >
-                <slot name="username">
+                <slot name="usernameSlot">
                     <div v-if="username">
                         {{ username }}
                     </div>
@@ -29,7 +30,7 @@
                 class="vm-user-widget-label"
                 @click="$emit('label-action')"
             >
-                <slot name="description">
+                <slot name="descriptionSlot">
                     <div v-if="label">
                         {{ label }}
                     </div>
@@ -39,7 +40,7 @@
                 class="vm-user-widget-extra"
                 :style="{color: extraColor, textDecoration: decorationExtra }"
             >
-                <slot name="extraInfo">
+                <slot name="extraInfoSlot">
                     <div v-if="extra" >
                         {{ extra }}
                     </div>
@@ -47,13 +48,13 @@
             </span>
         </div>
         <div class="vm-user-widget-user-button">
-            <slot name="actions" />
+            <slot name="actionsSlot" />
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component( {} )
 export default class UserWidget extends Vue {
