@@ -1,2 +1,2 @@
-import UserWidget from './lib/userWidget.vue';
+import UserWidget from './lib/components/UserWidget.vue';
 export { UserWidget }
