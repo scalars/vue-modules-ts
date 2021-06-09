@@ -11,7 +11,7 @@ module.exports = {
     parserOptions: {
         "parser": "@typescript-eslint/parser",
         "project": "./tsconfig.json",
-        "extraFileExtensions": [ ".vue" ],
+        "extraFileExtensions": [ ".vue", "ts", "js" ],
         "ecmaFeatures": {
             "legacyDecorators": true
         }
