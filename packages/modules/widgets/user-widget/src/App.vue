@@ -4,7 +4,7 @@
             <template #avatar>
                 holo
             </template>
-            <template #userName>
+            <template #username>
                 userDefault
             </template>
             <template #description>
