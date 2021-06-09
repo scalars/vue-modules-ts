@@ -1,8 +1,7 @@
-//@ts-ignore
 module.exports = {
   outputDir: "lib",
   css: {
-    extract: false,
+    extract: true,
   },
   parallel: false,
   lintOnSave: process.env.NODE_ENV !== 'production',
@@ -20,6 +19,11 @@ module.exports = {
         .rule("ts")
         .use("ts-loader")
         .loader("ts-loader")
+        .tap( opts => {
+          opts.transpileOnly = false
+          opts.happyPackMode = false
+          return opts
+        } )
     }
   },
 };
