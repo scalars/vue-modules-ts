@@ -1,4 +1,4 @@
-# Vue-modules-ts
+# Vue Modules
 ### _The most dynamic vue modules package, Ever_
 
 ####Powered by:
