@@ -1,2 +1,2 @@
-import Cropper from './dist/cropper.vue';
+import Cropper from './lib/components/Cropper.vue';
 export { Cropper }

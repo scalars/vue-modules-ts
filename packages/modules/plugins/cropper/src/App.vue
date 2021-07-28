@@ -1,7 +1,9 @@
 <template>
     <div id="app">
         <!-- import here your component -->
-        <cropper />
+        <cropper
+            @save-image="logger"
+        />
     </div>
 </template>
 
@@ -14,7 +16,11 @@ import Cropper from '@/components/Cropper.vue';
         Cropper
     }
 } )
-export default class App extends Vue {}
+export default class App extends Vue {
+    logger( file ){
+        console.log( file );
+    }
+}
 </script>
 
 <style lang="scss"></style>

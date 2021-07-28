@@ -90,6 +90,7 @@ export default class Cropper extends Vue {
     private resetStyles: { height: string, width: string } = { height: 'inherit', width: 'inherit' }
 
     private imageSource: string = '';
+    private imageName: string = '';
 
     /**
      * Private Methods
@@ -116,6 +117,7 @@ export default class Cropper extends Vue {
                 reader.readAsDataURL( file as Blob );
                 reader.onload = ( event ) => {
                     if ( event.target ) {
+                        this.imageName = file.name.replace(/\..+$/, '');
                         this.imageSource = event.target.result as string ;
                         ( this.$refs.cropper as any ).replace( this.imageSource );
                     } else {
@@ -126,6 +128,10 @@ export default class Cropper extends Vue {
         }
     }
 
+    private blobToFile = ( theBlob: Blob, fileName: string ): File => {
+        return new File([theBlob], fileName, { type:'image/png' } );
+    }
+
     /**
     * Public Methods
     * **/
@@ -133,11 +139,13 @@ export default class Cropper extends Vue {
     imageSaver (): void {
         // we cant use decorator @Emit because storybook can't recognize it
         this.$emit( 'save-image',
-            ( this.$refs.cropper as any ).getCroppedCanvas( {
+            this.blobToFile(
+                (this.$refs.cropper as any).getCroppedCanvas(
+                    {
                 width: this.exportSize,
                 height: this.exportSize,
                 imageSmoothingQuality: 'high'
-            } ).toDataURL()
+            } ).toDataURL(),`${this.imageName}.png` )
         );
     }
 

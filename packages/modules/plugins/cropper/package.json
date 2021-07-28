@@ -1,6 +1,6 @@
 {
   "name": "@vuemodules/cropper",
-  "version": "1.0.6",
+  "version": "1.1.2",
   "private": false,
   "license": "MIT",
   "author": "",
@@ -9,9 +9,9 @@
     "build": "vue-cli-service build --target lib --filename index --formats umd-min src/index.js",
     "lint": "vue-cli-service lint -c ../../../../.eslintrc.js --ignore-pattern !../../../../.eslintignore"
   },
-  "main": "dist/index.umd.min.js",
+  "main": "lib/index.umd.min.js",
   "files": [
-    "dist/*",
+    "lib/*",
     "index.d.ts"
   ],
   "dependencies": {
