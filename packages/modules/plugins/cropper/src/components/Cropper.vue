@@ -11,23 +11,26 @@
             @change="imageInputParser"
         >
         <slot name="header" />
-        <slot name="content">
-            <div class="vm-cropper">
-                <transition name="fade">
-                    <vue-cropper
-                        v-show="imageSource"
-                        ref="cropper"
-                        :class="{'cropper': true, 'circle': circle}"
-                        :guides="false"
-                        :center="false"
-                        :highlight="false"
-                        :background="false"
-                        :container-style="resetStyles"
-                        :aspect-ratio="1"
-                        :view-mode="1"
-                        :src="imageSource"
-                    />
-                </transition>
+        <div class="vm-cropper">
+            <transition name="fade">
+                <vue-cropper
+                    v-show="imageSource"
+                    ref="cropper"
+                    :class="{'cropper': true, 'circle': circle}"
+                    :guides="false"
+                    :center="false"
+                    :highlight="false"
+                    :background="false"
+                    :container-style="resetStyles"
+                    :aspect-ratio="1"
+                    :view-mode="1"
+                    :src="imageSource"
+                />
+            </transition>
+            <slot
+                name="content"
+                :hasImage="!!imageSource"
+            >
                 <div
                     v-show="!imageSource"
                     class="vm-cropper-chose-an-image"
@@ -39,9 +42,13 @@
                         {{ noImageLabel }}
                     </button>
                 </div>
-            </div >
-        </slot>
-        <slot name="actions">
+            </slot>
+        </div >
+       
+        <slot
+            name="actions"
+            :hasImage="!!imageSource"
+        >
             <transition name="fade">
                 <div v-show="imageSource">
                     <div class="vm-cropper-container-actions">
@@ -66,6 +73,7 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+import dataURLtoBlob from 'blueimp-canvas-to-blob';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
 
@@ -90,6 +98,7 @@ export default class Cropper extends Vue {
     private resetStyles: { height: string, width: string } = { height: 'inherit', width: 'inherit' }
 
     private imageSource: string = '';
+    private imageName: string = '';
 
     /**
      * Private Methods
@@ -116,6 +125,7 @@ export default class Cropper extends Vue {
                 reader.readAsDataURL( file as Blob );
                 reader.onload = ( event ) => {
                     if ( event.target ) {
+                        this.imageName = file.name.replace( /\..+$/, '' );
                         this.imageSource = event.target.result as string ;
                         ( this.$refs.cropper as any ).replace( this.imageSource );
                     } else {
@@ -126,23 +136,34 @@ export default class Cropper extends Vue {
         }
     }
 
+    private blobToFile = ( theBlob: Blob, fileName: string ): File => {
+        return new File( [theBlob], fileName, { type:'image/png' } );
+    }
+
     /**
     * Public Methods
     * **/
 
     imageSaver (): void {
         // we cant use decorator @Emit because storybook can't recognize it
-        this.$emit( 'save-image',
-            ( this.$refs.cropper as any ).getCroppedCanvas( {
+        const croppedImage = ( this.$refs.cropper as any ).getCroppedCanvas(
+            {
                 width: this.exportSize,
                 height: this.exportSize,
                 imageSmoothingQuality: 'high'
-            } ).toDataURL()
+            } ).toDataURL();
+        const blob = dataURLtoBlob( croppedImage );
+        this.$emit( 'save-image',
+            this.blobToFile( blob, `${this.imageName}.png` )
         );
     }
 
-    imageChooser () {
+    imageChooser (): void {
         ( this.$refs.input as HTMLInputElement ).click();
+    }
+
+    getImageSource (): string {
+        return this.imageSource;
     }
 }
 </script>
